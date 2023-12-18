@@ -1,0 +1,52 @@
+{
+  "root": "apps/Bharosa",
+  "sourceRoot": "apps/Bharosa/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/node:webpack",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/Bharosa",
+        "main": "apps/Bharosa/src/main.ts",
+        "tsConfig": "apps/Bharosa/tsconfig.app.json",
+        "assets": ["apps/Bharosa/src/assets"]
+      },
+      "configurations": {
+        "production": {
+          "optimization": true,
+          "extractLicenses": true,
+          "inspect": false,
+          "fileReplacements": [
+            {
+              "replace": "apps/Bharosa/src/environments/environment.ts",
+              "with": "apps/Bharosa/src/environments/environment.prod.ts"
+            }
+          ]
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/node:node",
+      "options": {
+        "buildTarget": "Bharosa:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/Bharosa/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/Bharosa"],
+      "options": {
+        "jestConfig": "apps/Bharosa/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

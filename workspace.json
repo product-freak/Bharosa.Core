@@ -1,0 +1,7 @@
+{
+  "version": 2,
+  "projects": {
+    "Bharosa": "apps/Bharosa",
+    "api-interfaces": "libs/api-interfaces"
+  }
+}

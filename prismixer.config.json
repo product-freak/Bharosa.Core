@@ -1,0 +1,8 @@
+{
+  "input": [
+    "./apps/Bharosa/src/app/common/DataStore/prisma/db-schema.prisma",
+    "./apps/Bharosa/src/app/components/account/account-schema.prisma",
+    "./apps/Bharosa/src/app/components/user/user-schema.prisma"
+  ],
+  "output": "./apps/Bharosa/src/app/common/DataStore/prisma/schema.prisma"
+}
