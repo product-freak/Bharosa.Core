@@ -25,21 +25,21 @@ export class AuthService implements AuthServiceInterface {
 
   async login(account: AccountModel): Promise<AuthTokenModel> {
     const accountInfo = await this.authRepository.findAccountByUsername(account.username);
-
-    if (!accountInfo) {
+    console.log(accountInfo);
+    if (!accountInfo || accountInfo?.length === 0) {
       throw new ArgumentValidationError(
         `User is not found with given username ${account.username}`,
         account,
         ApiErrorCode.E0008,
       )
-    } else if (accountInfo[0].password !== account.password) {
+    } else if (accountInfo[0]?.password !== account.password) {
       throw new ArgumentValidationError(
         `Invalid Credentials`,
         account,
         ApiErrorCode.E0007,
       )
     } else {
-      const user = await this.userService.getUserByAccountId(accountInfo[0].id);
+      const user = await this.userService.getUserByAccountId(accountInfo[0]?.id);
       const accessToken = await this.jwtService.encode(user?.[0]);
       return { authToken: accessToken };
     }
