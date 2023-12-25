@@ -8,4 +8,16 @@ model User {
   lastname String? @db.VarChar(200)
   email String @db.VarChar(200)
   phoneNumber String? @db.VarChar(20)
+  profileImage String? @db.VarChar @map("profile_image")
+  location String?
+  dob DateTime?
+  userType UserTypeEnum?
+}
+
+enum UserTypeEnum {
+  KITCHEN_STAFF
+  PLUMBER
+  CARPENTER
+  ELECTRICIAN
+  GENERAL_ADMIN
 }

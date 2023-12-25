@@ -7,7 +7,9 @@
     "build": "nx build",
     "prisma-generate": "prisma generate --schema=\"./apps/Bharosa/src/app/common/DataStore/prisma/schema.prisma\"",
     "test": "nx test",
-    "prisma-deploy": "npx prisma migrate deploy"
+    "prisma_db_pull": "npx prisma db pull --schema=\"./apps/Bharosa/src/app/common/DataStore/prisma/schema.prisma\"",
+    "prisma-deploy": "npx prisma migrate deploy --schema=\"./apps/Bharosa/src/app/common/DataStore/prisma/schema.prisma\"",
+    "prisma-create": "npx prisma migrate dev --name update_account_user_model --schema=\"./apps/Bharosa/src/app/common/DataStore/prisma/schema.prisma\""
   },
   "husky": {
     "hooks": {

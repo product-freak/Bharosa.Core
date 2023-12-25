@@ -8,4 +8,11 @@ model Account {
   phoneNumber String? @db.VarChar(20)
   otpSentToMobile String? @db.VarChar(20)
   countryCode String? @db.VarChar(20)
+  role RoleTypeEnum?
+}
+
+enum RoleTypeEnum {
+  ADMIN
+  GENERAL_ADMIN
+  USER
 }
