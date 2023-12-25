@@ -5,10 +5,12 @@ model Account {
   isDeleted Boolean @default(false) @map("is_deleted")
   username String? @db.VarChar(200)
   password String? @db.VarChar(100)
-  phoneNumber String? @db.VarChar(20)
-  otpSentToMobile String? @db.VarChar(20)
-  countryCode String? @db.VarChar(20)
+  phoneNumber String? @db.VarChar(20) @map("phone_number")
+  otpSentToMobile String? @db.VarChar(20) @map("otp_sent_to_mobile")
+  countryCode String? @db.VarChar(20) @map("country_code")
   role RoleTypeEnum?
+
+  @@index(fields: [username, phoneNumber])
 }
 
 enum RoleTypeEnum {

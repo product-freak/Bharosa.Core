@@ -1,0 +1,11 @@
+model Request {
+  id String @id @default(uuid()) @db.Uuid
+  createdAtUtc DateTime? @default(now()) @map("created_at_utc")
+  updatedAtUtc DateTime @updatedAt @map("updated_at_utc")
+  isDeleted Boolean @default(false) @map("is_deleted")
+  requestedById String? @db.VarChar(200) @map("requested_by_id")
+  requestedTo String? @db.VarChar(200) @map("requested_to")
+  postId String? @db.VarChar(200) @map("post_id")
+
+  @@index(fields: [requestedTo])
+}

@@ -15,7 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@fhynix-mono-repo/api-interfaces": ["libs/api-interfaces/src/index.ts"]
+      "@bharosa-mono-repo/api-interfaces": ["libs/api-interfaces/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

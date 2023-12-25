@@ -24,6 +24,24 @@ enum UserTypeEnum {
   GENERAL_ADMIN
 }
 
+enum SkillTypeEnum {
+  VEGETABLE_CUTTING
+  COOKING
+  CLEANING
+  HEAD_CHEF
+  SERVERS
+}
+
+enum EmploymentTypeEnum {
+  FULL_TIME
+  PART_TIME
+}
+
+enum StatusTypeEnum {
+  DRAFT
+  SUBMITTED
+}
+
 model Account {
   id              String        @id @default(uuid()) @db.Uuid
   createdAtUtc    DateTime?     @default(now()) @map("created_at_utc")
@@ -31,10 +49,12 @@ model Account {
   isDeleted       Boolean       @default(false) @map("is_deleted")
   username        String?       @db.VarChar(200)
   password        String?       @db.VarChar(100)
-  phoneNumber     String?       @db.VarChar(20)
-  otpSentToMobile String?       @db.VarChar(20)
-  countryCode     String?       @db.VarChar(20)
+  phoneNumber     String?       @db.VarChar(20) @map("phone_number")
+  otpSentToMobile String?       @db.VarChar(20) @map("otp_sent_to_mobile")
+  countryCode     String?       @db.VarChar(20) @map("country_code")
   role            RoleTypeEnum?
+
+  @@index(fields: [username, phoneNumber])
 }
 
 model User {
@@ -46,11 +66,119 @@ model User {
   firstname    String        @db.VarChar(200)
   lastname     String?       @db.VarChar(200)
   email        String        @db.VarChar(200)
-  phoneNumber  String?       @db.VarChar(20)
+  phoneNumber  String?       @db.VarChar(20) @map("phone_number")
   profileImage String?       @db.VarChar @map("profile_image")
   location     String?
   dob          DateTime?
-  userType     UserTypeEnum?
+  userType     UserTypeEnum? @map("user_type")
+}
+
+model Company {
+  id           String    @id @default(uuid()) @db.Uuid
+  createdAtUtc DateTime? @default(now()) @map("created_at_utc")
+  updatedAtUtc DateTime  @updatedAt @map("updated_at_utc")
+  isDeleted    Boolean   @default(false) @map("is_deleted")
+  userId       String?   @db.VarChar(200) @map("user_id")
+  companyName  String    @db.VarChar(100) @map("company_name")
+  gstNumber    String?   @db.VarChar(20) @map("gst_number")
+  foundedAtUtc DateTime? @map("founded_at_utc")
+  address      String    @db.VarChar(200) @map("address")
+  address2     String?   @db.VarChar(200) @map("address_2")
+  pincode      String?   @db.VarChar(10)
+  city         String?   @db.VarChar(200)
+  state        String?   @db.VarChar(100)
+  country      String?   @db.VarChar(100)
+
+  @@index(fields: [userId, companyName])
+}
+
+model Profile {
+  id                 String          @id @default(uuid()) @db.Uuid
+  createdAtUtc       DateTime?       @default(now()) @map("created_at_utc")
+  updatedAtUtc       DateTime        @updatedAt @map("updated_at_utc")
+  isDeleted          Boolean         @default(false) @map("is_deleted")
+  userId             String?         @db.VarChar(200) @map("user_id")
+  firstname          String?         @db.VarChar(200)
+  lastname           String?         @db.VarChar(200)
+  phoneNumber        String?         @db.VarChar(20) @map("phone_number")
+  countryCode        String?         @db.VarChar(20) @map("country_code")
+  email              String?         @db.VarChar(200)
+  gender             String?         @db.VarChar(20)
+  aadharNumber       String?         @db.VarChar(100) @map("aadhar_number")
+  panNumber          String?         @db.VarChar(50) @map("pan_number")
+  dob                DateTime?
+  experienceYears    Int?            @map("experience_years")
+  experienceMonths   Int?            @map("experience_months")
+  companiesWorkedAt  String[]        @db.VarChar @map("companies_worked_at")
+  currentCtc         Int?            @map("current_ctc")
+  skills             SkillTypeEnum[]
+  education          String?
+  profileImage       String?         @db.VarChar(200) @map("profile_image")
+  locations          String[]        @db.VarChar
+  currentlyWorkingIn String?         @db.VarChar(200) @map("currently_working_in")
+  address            String          @db.VarChar(200) @map("address")
+  adddress2          String?         @db.VarChar(200) @map("address_2")
+  pincode            String?         @db.VarChar(10)
+  city               String?         @db.VarChar(200)
+  state              String?         @db.VarChar(100)
+  country            String?         @db.VarChar(100)
+  searchCode         String?         @db.VarChar @map("search_code")
+
+  @@index(fields: [userId, searchCode])
+}
+
+model Post {
+  id             String              @id @default(uuid()) @db.Uuid
+  createdAtUtc   DateTime?           @default(now()) @map("created_at_utc")
+  updatedAtUtc   DateTime            @updatedAt @map("updated_at_utc")
+  isDeleted      Boolean             @default(false) @map("is_deleted")
+  userId         String?             @db.VarChar(200) @map("user_id")
+  companyName    String              @db.VarChar(100) @map("company_name")
+  companyId      String?             @db.VarChar(200) @map("company_id")
+  title          String              @db.VarChar(200)
+  description    String              @db.VarChar
+  postById       String?             @db.VarChar(200) @map("post_by_id")
+  location       String?             @db.VarChar(200)
+  rating         Int?
+  department     UserTypeEnum?
+  skills         SkillTypeEnum[]
+  experience     String?             @db.VarChar(200)
+  employmentType EmploymentTypeEnum? @map("employment_type")
+  education      String?             @db.VarChar(200)
+  salary         Int?
+  status         StatusTypeEnum?
+  noOfVacancies  String?             @db.VarChar(200) @map("no_of_vacancies")
+  imageUrl       String?             @db.VarChar(200) @map("image_url")
+  searchCode     String?             @db.VarChar @map("search_code")
+
+  @@index(fields: [department, searchCode])
+}
+
+model Notification {
+  id           String    @id @default(uuid()) @db.Uuid
+  createdAtUtc DateTime? @default(now()) @map("created_at_utc")
+  updatedAtUtc DateTime  @updatedAt @map("updated_at_utc")
+  isDeleted    Boolean   @default(false) @map("is_deleted")
+  userId       String?   @db.VarChar(200) @map("user_id")
+  sentById     String?   @db.VarChar(200) @map("sent_by_id")
+  postId       String?   @db.VarChar(200) @map("post_id")
+  expiresOn    DateTime? @map("expires_on")
+  scheduledAt  DateTime? @map("scheduled_at")
+  searchCode   String?   @db.VarChar @map("search_code")
+
+  @@index(fields: [searchCode])
+}
+
+model Request {
+  id            String    @id @default(uuid()) @db.Uuid
+  createdAtUtc  DateTime? @default(now()) @map("created_at_utc")
+  updatedAtUtc  DateTime  @updatedAt @map("updated_at_utc")
+  isDeleted     Boolean   @default(false) @map("is_deleted")
+  requestedById String?   @db.VarChar(200) @map("requested_by_id")
+  requestedTo   String?   @db.VarChar(200) @map("requested_to")
+  postId        String?   @db.VarChar(200) @map("post_id")
+
+  @@index(fields: [requestedTo])
 }
 
   

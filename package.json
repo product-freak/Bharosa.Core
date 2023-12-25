@@ -1,5 +1,5 @@
 {
-  "name": "fhynix-mono-repo",
+  "name": "bharosa-mono-repo",
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
@@ -9,7 +9,7 @@
     "test": "nx test",
     "prisma_db_pull": "npx prisma db pull --schema=\"./apps/Bharosa/src/app/common/DataStore/prisma/schema.prisma\"",
     "prisma-deploy": "npx prisma migrate deploy --schema=\"./apps/Bharosa/src/app/common/DataStore/prisma/schema.prisma\"",
-    "prisma-create": "npx prisma migrate dev --name update_account_user_model --schema=\"./apps/Bharosa/src/app/common/DataStore/prisma/schema.prisma\""
+    "prisma-create": "npx prisma migrate dev --name add_profile_company_post_notification_request --schema=\"./apps/Bharosa/src/app/common/DataStore/prisma/schema.prisma\""
   },
   "husky": {
     "hooks": {
