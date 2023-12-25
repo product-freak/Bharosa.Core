@@ -6,7 +6,8 @@
     "start": "prismixer && npm run prisma-generate && nx serve",
     "build": "nx build",
     "prisma-generate": "prisma generate --schema=\"./apps/Bharosa/src/app/common/DataStore/prisma/schema.prisma\"",
-    "test": "nx test"
+    "test": "nx test",
+    "prisma-deploy": "npx prisma migrate deploy"
   },
   "husky": {
     "hooks": {

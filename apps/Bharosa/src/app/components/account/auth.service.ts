@@ -41,7 +41,7 @@ export class AuthService implements AuthServiceInterface {
     } else {
       const user = await this.userService.getUserByAccountId(accountInfo[0]?.id);
       const accessToken = await this.jwtService.encode(user?.[0]);
-      return { authToken: accessToken };
+      return { accessToken };
     }
   }
 
