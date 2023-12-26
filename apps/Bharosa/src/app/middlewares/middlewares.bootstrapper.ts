@@ -5,6 +5,7 @@ import * as express from 'express'
 import jwtMiddleware from './jwt-auth.middleware'
 import { CommonTypes } from '../common/common.types'
 import { RequestIdMiddleware } from './request-id.middleware'
+import joiValidateMiddleware from './joi-validate.middleware'
 
 @injectable()
 export default class MiddlewaresBootstrapper {
@@ -15,5 +16,8 @@ export default class MiddlewaresBootstrapper {
     CommonContainer.bind<RequestIdMiddleware>(
       CommonTypes.requestIdMiddleware,
     ).to(RequestIdMiddleware)
+    CommonContainer.bind<express.RequestHandler>(
+      CommonTypes.joiValidateMiddleware,
+    ).toConstantValue(joiValidateMiddleware)
   }
 }
