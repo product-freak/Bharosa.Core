@@ -32,5 +32,6 @@ export type ProfileModel = {
   city?: string;
   state?: string;
   country?: string;
+  languagesKnown?: string[];
   searchCode?: string;
 };

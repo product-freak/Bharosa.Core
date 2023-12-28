@@ -2,6 +2,8 @@ model Post {
   id String @id @default(uuid()) @db.Uuid
   createdAtUtc DateTime? @default(now()) @map("created_at_utc")
   updatedAtUtc DateTime @updatedAt @map("updated_at_utc")
+  createdById String? @db.VarChar(200) @map("created_by_id")
+  updatedById String? @db.VarChar(200) @map("updated_by_id")
   isDeleted Boolean @default(false) @map("is_deleted")
   userId String? @db.VarChar(200) @map("user_id")
   companyName String @db.VarChar(100)  @map("company_name")

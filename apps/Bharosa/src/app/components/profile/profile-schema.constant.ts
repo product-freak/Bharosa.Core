@@ -14,17 +14,18 @@ export const createProfileSchema = Joi.object().keys({
     dob: Joi.string().required(),
     experienceYears: Joi.number().optional(),
     experienceMonths: Joi.number().optional(),
-    companiesWorkedAt: Joi.string().optional(),
+    companiesWorkedAt: Joi.array().items(Joi.string()).optional(),
     currentCtc: Joi.number().optional(),
-    skills: Joi.valid(...Object.values(SkillTypeEnum)),
+    skills: Joi.array().items(Joi.valid(...Object.values(SkillTypeEnum))).optional(),
     education: Joi.string().optional(),
     profileImage: Joi.string().optional(),
-    locations: Joi.string().required(),
+    locations: Joi.array().items(Joi.string()).optional(),
     currentlyWorkingIn: Joi.string().optional(),
     address: Joi.string().required(),
     adddress2: Joi.string().optional(),
     pincode: Joi.string().required(),
     city: Joi.string().required(),
     state: Joi.string().required(),
-    country: Joi.string().required()
+    country: Joi.string().required(),
+    languagesKnown: Joi.array().items(Joi.string()).optional()
 });

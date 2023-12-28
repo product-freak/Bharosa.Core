@@ -12,7 +12,7 @@ export const createPostSchema = Joi.object().keys({
     postById: Joi.string().required(),
     location: Joi.string().optional(),
     department: Joi.string().required(),
-    skills: Joi.valid(...Object.values(SkillTypeEnum)),
+    skills: Joi.array().items(Joi.valid(...Object.values(SkillTypeEnum))).optional(),
     experience: Joi.string().required(),
     employmentType: Joi.string().valid(...Object.values(EmploymentTypeEnum)),
     education: Joi.string().optional(),
