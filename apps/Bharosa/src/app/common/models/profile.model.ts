@@ -1,0 +1,36 @@
+import { SkillTypeEnum } from "../enums/skill-type.enum";
+
+export type ProfileModel = {
+  id?: string;
+  createdAtUtc?: Date;
+  updatedAtUtc?: Date;
+  createdBy?: string;
+  updatedBy?: string;
+  isDeleted?: boolean;
+  userId?: string;
+  firstname?: string;
+  lastname?: string;
+  phoneNumber?: string;
+  countryCode?: string;
+  email?: string;
+  gender?: string;
+  aadharNumber?: string;
+  panNumber?: string;
+  dob?: string;
+  experienceYears?: number;
+  experienceMonths?: number;
+  companiesWorkedAt?: string[];
+  currentCtc?: number;
+  skills?: SkillTypeEnum[];
+  education?: string;
+  profileImage?: string;
+  locations?: string[];
+  currentlyWorkingIn?: string;
+  address?: string;
+  adddress2?: string;
+  pincode?: string;
+  city?: string;
+  state?: string;
+  country?: string;
+  searchCode?: string;
+};

@@ -1,0 +1,7 @@
+export enum SkillTypeEnum {
+    VEGETABLE_CUTTING = 'VEGETABLE_CUTTING',
+    COOKING = 'COOKING',
+    CLEANING = 'CLEANING',
+    HEAD_CHEF = 'HEAD_CHEF',
+    SERVERS = 'SERVERS'
+}
