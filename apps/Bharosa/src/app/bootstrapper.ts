@@ -2,6 +2,7 @@ import CommonBootstrapper from './common/common.bootstrapper'
 import { DataStore } from './common/data/datastore'
 import AccountBootstrapper from './components/account/account.bootstrapper'
 import CompanyBootstrapper from './components/company/company.bootstrapper'
+import NotificationBootstrapper from './components/notification/notification.bootstrapper'
 import PostBootstrapper from './components/post/post.bootstrapper'
 import ProfileBootstrapper from './components/profile/profile.bootstrapper'
 import UserBootstrapper from './components/user/user.bootstrapper'
@@ -16,6 +17,7 @@ export default class Bootstrapper {
     PostBootstrapper.initialize();
     ProfileBootstrapper.initialize();
     CompanyBootstrapper.initialize();
+    NotificationBootstrapper.initialize();
     MiddlewaresBootstrapper.initialize();
     DataStore.initialize();
   }
