@@ -14,8 +14,8 @@ import { loginSchema } from './account-schema.constant'
 
 @controller('/auth')
 export class AuthController implements interfaces.Controller {
-  constructor(@inject(AccountTypes.authService) private authService: AuthServiceInterface) {}
 
+  constructor(@inject(AccountTypes.authService) private authService: AuthServiceInterface) {}
   
   @httpPost('/login', joiValidateMiddleware(loginSchema))
   private async login(

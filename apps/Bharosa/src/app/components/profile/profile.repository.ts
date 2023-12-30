@@ -11,7 +11,7 @@ export class ProfileRepository implements ProfileRepositoryInterface {
         this.client = this.store.getClient();
     }
 
-    async getProfile(userId: string): Promise<ProfileModel> {
+    async getProfileByUserId(userId: string): Promise<ProfileModel> {
         const result = await this.client?.profile?.find({
             where: {
                 userId,

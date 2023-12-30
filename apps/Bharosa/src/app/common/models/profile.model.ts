@@ -4,8 +4,8 @@ export type ProfileModel = {
   id?: string;
   createdAtUtc?: Date;
   updatedAtUtc?: Date;
-  createdBy?: string;
-  updatedBy?: string;
+  createdById?: string;
+  updatedById?: string;
   isDeleted?: boolean;
   userId?: string;
   firstname?: string;

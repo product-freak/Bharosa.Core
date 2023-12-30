@@ -8,8 +8,8 @@ import { ProfileModel } from '../../common/models/profile.model';
 export class ProfileService implements ProfileServiceInterface {
     constructor(@inject(ProfileTypes.profileRepository) private readonly profileRepository: ProfileRepositoryInterface) {}
 
-    async getProfile(userId: string): Promise<ProfileModel> {
-        return await this.profileRepository.getProfile(userId);
+    async getProfileByUserId(userId: string): Promise<ProfileModel> {
+        return await this.profileRepository.getProfileByUserId(userId);
     }
 
     async addProfile(profile: ProfileModel): Promise<ProfileModel> {

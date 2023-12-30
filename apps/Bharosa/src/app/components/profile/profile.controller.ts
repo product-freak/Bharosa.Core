@@ -18,7 +18,7 @@ export class ProfileController implements interfaces.Controller {
         res: express.Response
     ): Promise<any> {
         const userId = this.requestContext.getUserId();
-        const profile = await this.profileService.getProfile(userId);
+        const profile = await this.profileService.getProfileByUserId(userId);
         res.send(profile);
     }
 

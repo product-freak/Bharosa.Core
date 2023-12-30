@@ -34,4 +34,15 @@ export class PostRepository implements PostRepositoryInterface {
         });
         return result ? result : [];
     }
+
+    async searchPostsBySkillsDepartment(searchQuery: string): Promise<PostModel[]> {
+        const result = await this.client?.post?.findAll({
+            where: {
+                searchCode: {
+                    search: searchQuery
+                }
+            }
+        });
+        return result ? result : [];
+    }
 }

@@ -39,6 +39,12 @@ export class RequestContext implements RequestContextInterface {
     this.asyncLocalStorage.enterWith(store)
   }
 
+  setUserType(userType: string) {
+    const store = this.getStore()
+    store['userType'] = userType
+    this.asyncLocalStorage.enterWith(store)
+  }
+
   getUserId() {
     return this.asyncLocalStorage.getStore()?.['userId']
   }
@@ -49,5 +55,9 @@ export class RequestContext implements RequestContextInterface {
 
   getTimezone() {
     return this.asyncLocalStorage.getStore()?.['timezone']
+  }
+
+  getUserType() {
+    return this.asyncLocalStorage.getStore()?.['userType']
   }
 }

@@ -10,6 +10,7 @@ import { PostServiceInterface } from '../../common/interfaces/post-service.inter
 
 @controller('/post')
 export class PostController implements interfaces.Controller {
+
     constructor(@inject(PostTypes.postService) private readonly postService: PostServiceInterface, @inject(CommonTypes.requestContext) private readonly requestContext: RequestContext) {}
 
     @httpGet('', CommonTypes.jwtAuthMiddleware)
@@ -28,6 +29,17 @@ export class PostController implements interfaces.Controller {
         res: express.Response
     ): Promise<any> {
         const posts = await this.postService.addPost(req.body);
+        res.send(posts);
+    }
+
+    @httpGet('/user-search', joiValidateMiddleware(createPostSchema))
+    private async getPostsByUser(
+        req: express.Request,
+        res: express.Response
+    ): Promise<any> {
+        const userId = this.requestContext.getUserId();
+        const userType = this.requestContext.getUserType();
+        const posts = await this.postService.searchPostsBySkillsDepartment(userId, userType);
         res.send(posts);
     }
 }

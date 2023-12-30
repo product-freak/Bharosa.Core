@@ -28,6 +28,7 @@ const jwtMiddleware = (req, res, next) => {
         requestContext.setUserId(authToken.userId)
         requestContext.setAccountId(authToken.accountId)
         requestContext.setTimezone(null)
+        requestContext.setUserType(authToken.userType)
         logger.setUserContext(authToken.accountId, authToken.email)
         next()
       }

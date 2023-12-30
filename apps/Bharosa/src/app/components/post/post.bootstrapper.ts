@@ -10,12 +10,12 @@ import { PostTypes } from "./post.types"
 @injectable()
 export default class PostBootstrapper {
     public static initialize() {
-        CommonContainer.bind<PostRepositoryInterface>(PostTypes.postRepository).to(
-          PostRepository,
-        )
-        CommonContainer.bind<PostServiceInterface>(PostTypes.postService).to(
-          PostService,
-        )
-        CommonContainer.bind<PostController>(PostTypes.postController).to(PostController)
-      }
+      CommonContainer.bind<PostRepositoryInterface>(PostTypes.postRepository).to(
+        PostRepository,
+      )
+      CommonContainer.bind<PostServiceInterface>(PostTypes.postService).to(
+        PostService,
+      )
+      CommonContainer.bind<PostController>(PostTypes.postController).to(PostController)
+    }
 }
