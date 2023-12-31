@@ -22,7 +22,7 @@ export type ProfileModel = {
   companiesWorkedAt?: string[];
   currentCtc?: number;
   skills?: SkillTypeEnum[];
-  education?: string;
+  qualification?: string;
   profileImage?: string;
   locations?: string[];
   currentlyWorkingIn?: string;

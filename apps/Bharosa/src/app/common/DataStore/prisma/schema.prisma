@@ -120,7 +120,7 @@ model Profile {
   companiesWorkedAt  String[]        @db.VarChar @map("companies_worked_at")
   currentCtc         Int?            @map("current_ctc")
   skills             SkillTypeEnum[]
-  education          String?
+  qualification      String?
   profileImage       String?         @db.VarChar(200) @map("profile_image")
   locations          String[]        @db.VarChar
   currentlyWorkingIn String?         @db.VarChar(200) @map("currently_working_in")
@@ -155,7 +155,7 @@ model Post {
   skills         SkillTypeEnum[]
   experience     String?             @db.VarChar(200)
   employmentType EmploymentTypeEnum? @map("employment_type")
-  education      String?             @db.VarChar(200)
+  qualification  String?             @db.VarChar(200)
   salary         Int?
   status         StatusTypeEnum?
   noOfVacancies  String?             @db.VarChar(200) @map("no_of_vacancies")

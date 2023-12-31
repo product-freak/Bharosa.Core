@@ -15,10 +15,14 @@ export const createPostSchema = Joi.object().keys({
     skills: Joi.array().items(Joi.valid(...Object.values(SkillTypeEnum))).optional(),
     experience: Joi.string().required(),
     employmentType: Joi.string().valid(...Object.values(EmploymentTypeEnum)),
-    education: Joi.string().optional(),
+    qualification: Joi.string().optional(),
     salary: Joi.string().required(),
     status: Joi.string().valid(...Object.values(StatusTypeEnum)),
     noOfVacancies: Joi.string().required(),
-    imageUrl: Joi.string().required()
+    imageUrl: Joi.string().optional(),
+    notification: Joi.string().optional(),
+    scheduledOn: Joi.alternatives().conditional('notification', {is: Joi.string().required(), then: Joi.string().required()}),
+    expiredOn: Joi.alternatives().conditional('notification', {is: Joi.string().required(), then: Joi.string().required()}),
+
 });
 

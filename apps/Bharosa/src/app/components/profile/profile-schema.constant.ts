@@ -17,7 +17,7 @@ export const createProfileSchema = Joi.object().keys({
     companiesWorkedAt: Joi.array().items(Joi.string()).optional(),
     currentCtc: Joi.number().optional(),
     skills: Joi.array().items(Joi.valid(...Object.values(SkillTypeEnum))).optional(),
-    education: Joi.string().optional(),
+    qualification: Joi.string().optional(),
     profileImage: Joi.string().optional(),
     locations: Joi.array().items(Joi.string()).optional(),
     currentlyWorkingIn: Joi.string().optional(),

@@ -20,7 +20,7 @@ export type PostModel = {
     skills?: SkillTypeEnum
     experience?: string
     employmentType?: EmploymentTypeEnum
-    education?: string
+    qualification?: string
     salary?: string
     status?: StatusTypeEnum
     noOfVacancies?: string

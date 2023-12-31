@@ -17,7 +17,7 @@ model Post {
   skills SkillTypeEnum[]
   experience String? @db.VarChar(200)
   employmentType EmploymentTypeEnum? @map("employment_type")
-  education String? @db.VarChar(200)
+  qualification String? @db.VarChar(200)
   salary Int?
   status StatusTypeEnum?
   noOfVacancies String? @db.VarChar(200) @map("no_of_vacancies")
