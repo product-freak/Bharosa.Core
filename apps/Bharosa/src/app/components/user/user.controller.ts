@@ -2,28 +2,26 @@ import * as express from 'express'
 import {
   interfaces,
   controller,
-  httpPost,
   request,
   response,
-  httpGet,
-  httpDelete
+  httpGet
 } from 'inversify-express-utils'
 import { inject } from 'inversify'
 import { UserTypes } from './user.types'
 import { UserService } from './user.service'
+import { CommonTypes } from '../../common/common.types'
+import { RequestContext } from '../../common/jwtservice/requests-context.service'
 
 @controller('/user')
 export class UserController implements interfaces.Controller {
-  constructor(@inject(UserTypes.userService) private userService: UserService) {}
+  constructor(@inject(UserTypes.userService) private userService: UserService, @inject(CommonTypes.requestContext) private readonly requestContext: RequestContext) {}
 
   
-  @httpGet('/:id')
-  private async getUsers(
-    @request() req: express.Request,
+  @httpGet('')
+  private async getUserById(
     @response() res: express.Response,
   ) {
-    res.send(await this.userService.getUserById(req.params.id));
+    const userId = this.requestContext.getUserId();
+    res.send(await this.userService.getUserById(userId));
   }
-
-
 }
