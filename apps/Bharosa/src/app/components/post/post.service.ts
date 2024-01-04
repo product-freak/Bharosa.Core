@@ -20,6 +20,9 @@ export class PostService implements PostServiceInterface {
 
     async addPost(post: PostModel): Promise<PostModel> {
         post.searchCode = this.createSearchCode(post);
+        delete post['notification'];
+        delete post['expiredOn'];
+        delete post['scheduledOn'];
         return await this.postRepository.addPost(post);
     }
 

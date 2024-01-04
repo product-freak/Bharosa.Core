@@ -6,7 +6,7 @@ import { StatusTypeEnum } from "../../common/enums/status.enum";
 export const createPostSchema = Joi.object().keys({
     userId: Joi.string().required(),
     companyName: Joi.string().required(),
-    companyId: Joi.string().required(),
+    companyId: Joi.string().optional(),
     title: Joi.string().required(),
     description: Joi.string().required(),
     postById: Joi.string().required(),
@@ -20,9 +20,9 @@ export const createPostSchema = Joi.object().keys({
     status: Joi.string().valid(...Object.values(StatusTypeEnum)),
     noOfVacancies: Joi.string().required(),
     imageUrl: Joi.string().optional(),
-    notification: Joi.string().optional(),
-    scheduledOn: Joi.alternatives().conditional('notification', {is: Joi.string().required(), then: Joi.string().required()}),
-    expiredOn: Joi.alternatives().conditional('notification', {is: Joi.string().required(), then: Joi.string().required()}),
+    notification: Joi.optional(),
+    scheduledOn: Joi.optional(),
+    expiredOn: Joi.optional(),
 
 });
 

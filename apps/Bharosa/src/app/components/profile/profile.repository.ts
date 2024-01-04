@@ -12,7 +12,8 @@ export class ProfileRepository implements ProfileRepositoryInterface {
     }
 
     async getProfileByUserId(userId: string): Promise<ProfileModel> {
-        const result = await this.client?.profile?.find({
+        console.log(userId);
+        const result = await this.client?.profile?.findFirst({
             where: {
                 userId,
                 isDeleted: false

@@ -5,7 +5,7 @@ export enum ApiErrorCode {
   'E0004' = 'Invalid Login Provider',
   'E0005' = 'Password and Confirm password are not matching',
   'E0006' = 'Email already exists',
-  'E0007' = 'Inavlid Credentials',
+  'E0007' = 'Invalid Credentials',
   'E0008' = 'User is not found with given username',
   'E0009' = 'Failed to upload file to s3 bucket'
 }

@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Post" ALTER COLUMN "salary" SET DATA TYPE TEXT;

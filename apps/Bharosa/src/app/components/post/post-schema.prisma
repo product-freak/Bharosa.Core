@@ -18,7 +18,7 @@ model Post {
   experience String? @db.VarChar(200)
   employmentType EmploymentTypeEnum? @map("employment_type")
   qualification String? @db.VarChar(200)
-  salary Int?
+  salary String?
   status StatusTypeEnum?
   noOfVacancies String? @db.VarChar(200) @map("no_of_vacancies")
   imageUrl String? @db.VarChar(200) @map("image_url")

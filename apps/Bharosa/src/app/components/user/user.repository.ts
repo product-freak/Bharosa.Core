@@ -20,7 +20,7 @@ export class UserRepository implements UserRepositoryInterface {
   }
 
   async getUserById(id: string): Promise<UserModel> {
-    const result = await this.client.user?.findMany({
+    const result = await this.client.user?.findFirst({
       where: {
         id,
         isDeleted: false,
