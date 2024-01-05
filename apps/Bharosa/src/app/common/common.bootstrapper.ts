@@ -16,6 +16,8 @@ import SentryLogProvider from './logger/sentry-log.provider'
 import { environment } from '../../environments/environment'
 import { LoggerInterface } from './logger/logger.interface'
 import { Loggerservice } from './logger/logger.service'
+import { HashProviderInterface } from './interfaces/hash-provider.interface'
+import { HashProvider } from './hash-provider/hash-provider.service'
 
 
 @injectable()
@@ -41,6 +43,9 @@ export default class CommonBootstrapper {
     CommonContainer.bind<LogProviderInterface>(CommonTypes.sentryLog)
       .to(SentryLogProvider)
       .inSingletonScope()
+    CommonContainer.bind<HashProviderInterface>(CommonTypes.hashProvider).to(
+      HashProvider,
+    )
     if (environment.envName !== 'local') {
       CommonContainer.get<LogProviderInterface>(
         CommonTypes.sentryLog,
@@ -82,6 +87,7 @@ export default class CommonBootstrapper {
     environment.region = process.env.region || environment.region
     environment.awsSNSApiVersion =
       process.env.awsSNSApiVersion || environment.awsSNSApiVersion
+    environment.saltBcryptNumber = Number(process.env.saltBcryptNumber)
   }
 
 }

@@ -21,4 +21,5 @@ export const environment = {
   cleverTapPasscode: '',
   region: '',
   awsSNSApiVersion: '',
+  saltBcryptNumber: 0
 }

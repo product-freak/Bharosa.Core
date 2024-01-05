@@ -7,20 +7,21 @@ import { AuthTokenModel } from '../../common/models/auth-token.model'
 import { UserModel } from '../../common/models/user.model'
 import { AccountUserModel } from '../../common/models/account-user.model'
 import { UserTypes } from '../user/user.types'
-import { UserRepositoryInterface } from '../../common/interfaces/user-repository.interface'
 import { AuthRepositoryInterface } from '../../common/interfaces/auth-repository.interface'
 import { ArgumentValidationError } from '../../common/errors/custom-errors/argument-validation.error'
 import { ApiErrorCode } from 'apps/shared/payloads/error-codes'
 import { CommonTypes } from '../../common/common.types'
 import { JWTInterface } from '../../common/interfaces/jwt.interface'
 import { UserServiceInterface } from '../../common/interfaces/user-service.interface'
+import { HashProviderInterface } from '../../common/interfaces/hash-provider.interface'
 
 @injectable()
 export class AuthService implements AuthServiceInterface {
   constructor(
     @inject(AccountTypes.authRepository) private authRepository: AuthRepositoryInterface,
     @inject(UserTypes.userService) private userService: UserServiceInterface,
-    @inject(CommonTypes.jwt) private jwtService: JWTInterface
+    @inject(CommonTypes.jwt) private jwtService: JWTInterface,
+    @inject(CommonTypes.hashProvider) private hashProvider: HashProviderInterface,
   ) {}
 
   async login(account: AccountModel): Promise<AuthTokenModel> {
@@ -32,7 +33,9 @@ export class AuthService implements AuthServiceInterface {
         account,
         ApiErrorCode.E0008,
       )
-    } else if (accountInfo[0]?.password !== account.password) {
+    }
+    const isAccountVerified = await this.hashProvider.comparePasswordHash(account.password, accountInfo[0].password);
+    if (!isAccountVerified) {
       throw new ArgumentValidationError(
         `Invalid Credentials`,
         account,
@@ -54,10 +57,14 @@ export class AuthService implements AuthServiceInterface {
         ApiErrorCode.E0006,
       )
     }
+
+    user.password = await this.hashProvider.generatePasswordHash(user.password);
+
     const accountInfo: AccountModel = {
-      username: user.email,
+      username: user.email?.toLowerCase(),
       password: user.password
     };
+
 
     const account = await this.authRepository.addAccount(accountInfo);
     
@@ -65,7 +72,7 @@ export class AuthService implements AuthServiceInterface {
       accountId: account.id,
       firstname: user.firstname,
       lastname: user.lastname,
-      email: user.email,
+      email: user.email?.toLowerCase(),
       phoneNumber: user.phoneNumber
     };
 

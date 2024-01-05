@@ -29,8 +29,9 @@
   "dependencies": {
     "@sentry/node": "^7.15.0",
     "@sentry/tracing": "^7.15.0",
+    "@types/bcrypt": "^5.0.2",
     "axios": "^0.27.2",
-    "bcrypt": "^5.0.1",
+    "bcrypt": "^5.1.1",
     "clevertap": "^1.2.0",
     "core-js": "~3.6.5",
     "cors": "^2.8.5",

@@ -7,7 +7,8 @@ const CommonTypes = {
   hash: Symbol.for('HashInterface'),
   storage: Symbol.for('StorageProvider'),
   sentryLog: Symbol.for('SentryLogProvider'),
-  joiValidateMiddleware: Symbol.for('joiValidateMiddleware')
+  joiValidateMiddleware: Symbol.for('joiValidateMiddleware'),
+  hashProvider: Symbol.for('HashProvider')
 }
 
 export { CommonTypes }
