@@ -29,7 +29,7 @@ export class UserRepository implements UserRepositoryInterface {
     return result ? result : []
   }
 
-  async getUserByAccountId(accountId: string): Promise<UserModel[]> {
+  async getUserByAccountId(accountId: string): Promise<UserModel> {
     const result = await this.client.user?.findFirst({
       where: {
         accountId,
@@ -44,6 +44,16 @@ export class UserRepository implements UserRepositoryInterface {
       where: {
         isDeleted: false,
       },
+    })
+    return result ? result : []
+  }
+
+  async updateUserById(id: string, user: UserModel): Promise<UserModel> {
+    const result = await this.client.user?.update({
+      data: user,
+      where: {
+        id
+      }
     })
     return result ? result : []
   }

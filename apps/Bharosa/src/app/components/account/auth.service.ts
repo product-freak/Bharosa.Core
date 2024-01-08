@@ -31,7 +31,7 @@ export class AuthService implements AuthServiceInterface {
     if (account.loginProvider === LoginMethodEnum.EMAIL_PASSWORD) {
       accountInfo = await this.authRepository.findAccountByUsername(account.username);
     } else if (account.loginProvider === LoginMethodEnum.MOBILE_OTP_PROVIDER) {
-      accountInfo = await this.authRepository.findAccountByPhoneNumber(account.username);
+      accountInfo = await this.authRepository.findAccountByPhoneNumber(account.phoneNumber);
     }
 
     if (!accountInfo) {
@@ -93,8 +93,16 @@ export class AuthService implements AuthServiceInterface {
   }
 
   async verifyOtp(account: AccountModel): Promise<AuthTokenModel> {
-    const user = await this.userService.getUserByAccountId(account?.id);
-    const accessToken = await this.jwtService.encode(user);
-    return { accessToken };
+    const accountInfo = await this.authRepository.findAccountByPhoneNumber(account.phoneNumber);
+    
+    const user = await this.userService.getUserByAccountId(accountInfo?.id);
+    if (user) {
+      const accessToken = await this.jwtService.encode(user);
+      return { accessToken };
+    } else {
+      const user = {accountId: account.id};
+      const accessToken = await this.jwtService.encode(user);
+      return { accessToken };
+    }
   }
 }

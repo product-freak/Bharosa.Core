@@ -23,13 +23,18 @@ export class UserService implements UserServiceInterface {
     return user;
   }
 
-  async getUserByAccountId(accountId: string): Promise<UserModel[]> {
+  async getUserByAccountId(accountId: string): Promise<UserModel> {
     const user = await this.userRepository.getUserByAccountId(accountId);
     return user;
   }
 
   async getUsers(): Promise<UserModel[]> {
     const users = await this.userRepository.getUsers();
+    return users;
+  }
+
+  async updateUserById(id: string, user: UserModel): Promise<UserModel> {
+    const users = await this.userRepository.addUser(user);
     return users;
   }
 
