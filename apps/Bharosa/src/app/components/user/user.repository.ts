@@ -30,13 +30,13 @@ export class UserRepository implements UserRepositoryInterface {
   }
 
   async getUserByAccountId(accountId: string): Promise<UserModel[]> {
-    const result = await this.client.user?.findMany({
+    const result = await this.client.user?.findFirst({
       where: {
         accountId,
         isDeleted: false,
       },
     })
-    return result ? result : []
+    return result
   }
   
   async getUsers(): Promise<UserModel[]> {

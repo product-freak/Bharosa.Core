@@ -9,7 +9,7 @@
     "test": "nx test",
     "prisma_db_pull": "npx prisma db pull --schema=\"./apps/Bharosa/src/app/common/DataStore/prisma/schema.prisma\"",
     "prisma-deploy": "npx prisma migrate deploy --schema=\"./apps/Bharosa/src/app/common/DataStore/prisma/schema.prisma\"",
-    "prisma-create": "npx prisma migrate dev --name update-post-salary-schema --schema=\"./apps/Bharosa/src/app/common/DataStore/prisma/schema.prisma\""
+    "prisma-create": "npx prisma migrate dev --name update-post-notification-schema --schema=\"./apps/Bharosa/src/app/common/DataStore/prisma/schema.prisma\""
   },
   "husky": {
     "hooks": {

@@ -14,6 +14,7 @@ model User {
   location String?
   dob DateTime?
   userType UserTypeEnum? @map("user_type")
+  isOnboardingCompleted Boolean @default(false) @map("is_onboarding_completed")
 }
 
 enum UserTypeEnum {

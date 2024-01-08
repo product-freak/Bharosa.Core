@@ -38,10 +38,20 @@ export class AuthRepository implements AuthRepositoryInterface {
     return result
   }
 
-  async findAccountByUsername(username: string): Promise<AccountModel[]> {
-    const result = await this.client?.account?.findMany({
+  async findAccountByUsername(username: string): Promise<AccountModel> {
+    const result = await this.client?.account?.findFirst({
       where: {
         username,
+        isDeleted: false,
+      },
+    })
+    return result
+  }
+
+  async findAccountByPhoneNumber(phoneNumber: string): Promise<AccountModel> {
+    const result = await this.client?.account?.findFirst({
+      where: {
+        phoneNumber,
         isDeleted: false,
       },
     })

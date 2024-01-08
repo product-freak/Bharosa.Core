@@ -14,4 +14,5 @@ export type UserModel = {
     location?: string
     dob?: Date
     userType?: UserTypeEnum
+    isOnboardingCompleted?: boolean
 }

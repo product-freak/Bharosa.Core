@@ -17,21 +17,17 @@ model Profile {
   dob DateTime?
   experienceYears Int? @map("experience_years")
   experienceMonths Int? @map("experience_months")
-  companiesWorkedAt String[] @db.VarChar @map("companies_worked_at")
-  currentCtc Int? @map("current_ctc")
   skills SkillTypeEnum[]
-  qualification String?
+  qualification String? @db.VarChar
   profileImage String? @db.VarChar(200) @map("profile_image")
   locations String[] @db.VarChar
   currentlyWorkingIn String? @db.VarChar(200) @map("currently_working_in")
-  address String @db.VarChar(200) @map("address")
-  adddress2 String? @db.VarChar(200) @map("address_2")
   pincode String? @db.VarChar(10)
   city String? @db.VarChar(200)
   state String? @db.VarChar(100)
   country String? @db.VarChar(100)
-  searchCode String? @db.VarChar @map("search_code")
   languagesKnown String[] @db.VarChar @map("languages_known")
+  searchCode String? @db.VarChar @map("search_code")
 
   @@index(fields: [userId, searchCode])
 }

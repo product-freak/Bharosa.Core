@@ -32,4 +32,13 @@ export class AuthController implements interfaces.Controller {
   ) {
     res.send(await this.authService.signUp(req.body))
   }
+
+   
+  @httpPost('/verify-otp')
+  private async verifyOtp(
+    @request() req: express.Request,
+    @response() res: express.Response,
+  ) {
+    res.send(await this.authService.verifyOtp(req.body))
+  }
 }

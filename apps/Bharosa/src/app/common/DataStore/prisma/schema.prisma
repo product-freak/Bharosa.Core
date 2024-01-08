@@ -60,21 +60,22 @@ model Account {
 }
 
 model User {
-  id           String        @id @default(uuid()) @db.Uuid
-  createdAtUtc DateTime?     @default(now()) @map("created_at_utc")
-  updatedAtUtc DateTime      @updatedAt @map("updated_at_utc")
-  createdById  String?       @db.VarChar(200) @map("created_by_id")
-  updatedById  String?       @db.VarChar(200) @map("updated_by_id")
-  isDeleted    Boolean       @default(false) @map("is_deleted")
-  accountId    String        @db.VarChar(100) @map("account_id")
-  firstname    String        @db.VarChar(200)
-  lastname     String?       @db.VarChar(200)
-  email        String        @db.VarChar(200)
-  phoneNumber  String?       @db.VarChar(20) @map("phone_number")
-  profileImage String?       @db.VarChar @map("profile_image")
-  location     String?
-  dob          DateTime?
-  userType     UserTypeEnum? @map("user_type")
+  id                    String        @id @default(uuid()) @db.Uuid
+  createdAtUtc          DateTime?     @default(now()) @map("created_at_utc")
+  updatedAtUtc          DateTime      @updatedAt @map("updated_at_utc")
+  createdById           String?       @db.VarChar(200) @map("created_by_id")
+  updatedById           String?       @db.VarChar(200) @map("updated_by_id")
+  isDeleted             Boolean       @default(false) @map("is_deleted")
+  accountId             String        @db.VarChar(100) @map("account_id")
+  firstname             String        @db.VarChar(200)
+  lastname              String?       @db.VarChar(200)
+  email                 String        @db.VarChar(200)
+  phoneNumber           String?       @db.VarChar(20) @map("phone_number")
+  profileImage          String?       @db.VarChar @map("profile_image")
+  location              String?
+  dob                   DateTime?
+  userType              UserTypeEnum? @map("user_type")
+  isOnboardingCompleted Boolean       @default(false) @map("is_onboarding_completed")
 }
 
 model Company {
@@ -117,21 +118,17 @@ model Profile {
   dob                DateTime?
   experienceYears    Int?            @map("experience_years")
   experienceMonths   Int?            @map("experience_months")
-  companiesWorkedAt  String[]        @db.VarChar @map("companies_worked_at")
-  currentCtc         Int?            @map("current_ctc")
   skills             SkillTypeEnum[]
-  qualification      String?
+  qualification      String?         @db.VarChar
   profileImage       String?         @db.VarChar(200) @map("profile_image")
   locations          String[]        @db.VarChar
   currentlyWorkingIn String?         @db.VarChar(200) @map("currently_working_in")
-  address            String          @db.VarChar(200) @map("address")
-  adddress2          String?         @db.VarChar(200) @map("address_2")
   pincode            String?         @db.VarChar(10)
   city               String?         @db.VarChar(200)
   state              String?         @db.VarChar(100)
   country            String?         @db.VarChar(100)
-  searchCode         String?         @db.VarChar @map("search_code")
   languagesKnown     String[]        @db.VarChar @map("languages_known")
+  searchCode         String?         @db.VarChar @map("search_code")
 
   @@index(fields: [userId, searchCode])
 }
@@ -175,7 +172,6 @@ model Notification {
   userId       String?   @db.VarChar(200) @map("user_id")
   sentById     String?   @db.VarChar(200) @map("sent_by_id")
   postId       String?   @db.VarChar(200) @map("post_id")
-  expiresOn    DateTime? @map("expires_on")
   scheduledAt  DateTime? @map("scheduled_at")
   searchCode   String?   @db.VarChar @map("search_code")
 

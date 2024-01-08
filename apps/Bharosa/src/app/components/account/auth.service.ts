@@ -14,6 +14,7 @@ import { CommonTypes } from '../../common/common.types'
 import { JWTInterface } from '../../common/interfaces/jwt.interface'
 import { UserServiceInterface } from '../../common/interfaces/user-service.interface'
 import { HashProviderInterface } from '../../common/interfaces/hash-provider.interface'
+import { LoginMethodEnum } from '../../common/enums/login-method.enum'
 
 @injectable()
 export class AuthService implements AuthServiceInterface {
@@ -24,33 +25,44 @@ export class AuthService implements AuthServiceInterface {
     @inject(CommonTypes.hashProvider) private hashProvider: HashProviderInterface,
   ) {}
 
-  async login(account: AccountModel): Promise<AuthTokenModel> {
-    const accountInfo = await this.authRepository.findAccountByUsername(account.username);
-    console.log(accountInfo);
-    if (!accountInfo || accountInfo?.length === 0) {
+  async login(account: AccountModel): Promise<AuthTokenModel | AccountModel> {
+    let accountInfo;
+
+    if (account.loginProvider === LoginMethodEnum.EMAIL_PASSWORD) {
+      accountInfo = await this.authRepository.findAccountByUsername(account.username);
+    } else if (account.loginProvider === LoginMethodEnum.MOBILE_OTP_PROVIDER) {
+      accountInfo = await this.authRepository.findAccountByPhoneNumber(account.username);
+    }
+
+    if (!accountInfo) {
       throw new ArgumentValidationError(
         `User is not found with given username ${account.username}`,
         account,
         ApiErrorCode.E0008,
       )
     }
-    const isAccountVerified = await this.hashProvider.comparePasswordHash(account.password, accountInfo[0].password);
-    if (!isAccountVerified) {
-      throw new ArgumentValidationError(
-        `Invalid Credentials`,
-        account,
-        ApiErrorCode.E0007,
-      )
-    } else {
-      const user = await this.userService.getUserByAccountId(accountInfo[0]?.id);
-      const accessToken = await this.jwtService.encode(user?.[0]);
+
+    if (account.loginProvider === LoginMethodEnum.EMAIL_PASSWORD) {
+      const isAccountVerified = await this.hashProvider.comparePasswordHash(account.password, accountInfo.password);
+      if (!isAccountVerified) {
+        throw new ArgumentValidationError(
+          `Invalid Credentials`,
+          account,
+          ApiErrorCode.E0007,
+        )
+      }
+      const user = await this.userService.getUserByAccountId(accountInfo?.id);
+      const accessToken = await this.jwtService.encode(user);
       return { accessToken };
+    } else if (account.loginProvider === LoginMethodEnum.MOBILE_OTP_PROVIDER) {
+      return accountInfo;
     }
+
   }
 
   async signUp(user: AccountUserModel): Promise<UserModel> {
     const accountByUserName = await this.authRepository.findAccountByUsername(user.email)
-    if (accountByUserName.length > 0) {
+    if (accountByUserName) {
       throw new ArgumentValidationError(
         `Account Already Exists with ${user.email} username`,
         user,
@@ -62,7 +74,8 @@ export class AuthService implements AuthServiceInterface {
 
     const accountInfo: AccountModel = {
       username: user.email?.toLowerCase(),
-      password: user.password
+      password: user.password,
+      phoneNumber: user.phoneNumber
     };
 
 
@@ -79,4 +92,9 @@ export class AuthService implements AuthServiceInterface {
     return await this.userService.addUser(userInfo);
   }
 
+  async verifyOtp(account: AccountModel): Promise<AuthTokenModel> {
+    const user = await this.userService.getUserByAccountId(account?.id);
+    const accessToken = await this.jwtService.encode(user);
+    return { accessToken };
+  }
 }
