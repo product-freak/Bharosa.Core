@@ -1,3 +1,6 @@
+import { RoleTypeEnum } from "../enums/role-type.enum";
+import { UserTypeEnum } from "../enums/user-type.enum";
+
 export type AccountUserModel = {
     id: string
     createdAtUtc: Date
@@ -12,4 +15,6 @@ export type AccountUserModel = {
     firstname: string
     lastname: string
     email: string
+    role: RoleTypeEnum,
+    userType: UserTypeEnum
 };

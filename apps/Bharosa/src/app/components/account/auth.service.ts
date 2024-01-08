@@ -15,6 +15,7 @@ import { JWTInterface } from '../../common/interfaces/jwt.interface'
 import { UserServiceInterface } from '../../common/interfaces/user-service.interface'
 import { HashProviderInterface } from '../../common/interfaces/hash-provider.interface'
 import { LoginMethodEnum } from '../../common/enums/login-method.enum'
+import { RoleTypeEnum } from '../../common/enums/role-type.enum'
 
 @injectable()
 export class AuthService implements AuthServiceInterface {
@@ -75,9 +76,9 @@ export class AuthService implements AuthServiceInterface {
     const accountInfo: AccountModel = {
       username: user.email?.toLowerCase(),
       password: user.password,
-      phoneNumber: user.phoneNumber
+      phoneNumber: user.phoneNumber,
+      role: user.role ?? RoleTypeEnum.USER
     };
-
 
     const account = await this.authRepository.addAccount(accountInfo);
     
