@@ -1,7 +1,7 @@
 import { injectable } from "inversify"
 import { CommonContainer } from "../../common/container"
 import { ProfileRepositoryInterface } from "../../common/interfaces/profile-repository.interface"
-import { ProfileServiceInterface } from "../../common/interfaces/profile-service.interfacee"
+import { ProfileServiceInterface } from "../../common/interfaces/profile-service.interface"
 import { ProfileController } from "./profile.controller"
 import { ProfileRepository } from "./profile.repository"
 import { ProfileService } from "./profile.service"

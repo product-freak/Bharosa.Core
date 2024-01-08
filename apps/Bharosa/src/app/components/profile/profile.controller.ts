@@ -5,8 +5,8 @@ import { ProfileTypes } from './profile.types';
 import { inject } from 'inversify';
 import { CommonTypes } from '../../common/common.types';
 import { RequestContext } from '../../common/jwtservice/requests-context.service';
-import { createProfileSchema } from './profile-schema.constant';
-import { ProfileServiceInterface } from '../../common/interfaces/profile-service.interfacee';
+import { createProfileSchema, updateProfileSchema } from './profile-schema.constant';
+import { ProfileServiceInterface } from '../../common/interfaces/profile-service.interface';
 
 @controller('/profile')
 export class ProfileController implements interfaces.Controller {
@@ -31,12 +31,12 @@ export class ProfileController implements interfaces.Controller {
         res.send(profile);
     }
 
-    @httpPut('/:id', joiValidateMiddleware(createProfileSchema))
+    @httpPut('/:id', joiValidateMiddleware(updateProfileSchema))
     private async updateProfile(
         req: express.Request,
         res: express.Response
     ): Promise<any> {
-        const profile = await this.profileService.updateProileById(req.params.id, req.body);
+        const profile = await this.profileService.updateProfileById(req.params.id, req.body);
         res.send(profile);
     }
 }

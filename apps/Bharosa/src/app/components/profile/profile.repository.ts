@@ -26,9 +26,16 @@ export class ProfileRepository implements ProfileRepositoryInterface {
         return result;
     }
 
-    async  updateProileById(id: string, profile: ProfileModel): Promise<ProfileModel> {
+    async updateProfileById(id: string, profile: ProfileModel): Promise<ProfileModel> {
         const result = await this.client?.profile?.update({data: profile, where: {
             id: id
+        }});
+        return result;
+    }
+
+    async updateProfileByUserId(userId: string, profile: ProfileModel): Promise<ProfileModel> {
+        const result = await this.client?.profile?.update({data: profile, where: {
+            userId
         }});
         return result;
     }

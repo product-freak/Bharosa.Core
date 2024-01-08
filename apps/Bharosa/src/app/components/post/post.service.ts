@@ -4,7 +4,7 @@ import { PostTypes } from './post.types';
 import { PostModel } from '../../common/models/post.model';
 import { PostRepositoryInterface } from '../../common/interfaces/post-repository.interface';
 import { ProfileTypes } from '../profile/profile.types';
-import { ProfileServiceInterface } from '../../common/interfaces/profile-service.interfacee';
+import { ProfileServiceInterface } from '../../common/interfaces/profile-service.interface';
 
 @injectable()
 export class PostService implements PostServiceInterface {
