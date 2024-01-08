@@ -1,5 +1,5 @@
 import * as express from 'express'
-import { controller, httpGet, httpPost, interfaces } from 'inversify-express-utils';
+import { controller, httpGet, httpPost, httpPut, interfaces } from 'inversify-express-utils';
 import joiValidateMiddleware from '../../middlewares/joi-validate.middleware';
 import { ProfileTypes } from './profile.types';
 import { inject } from 'inversify';
@@ -28,6 +28,15 @@ export class ProfileController implements interfaces.Controller {
         res: express.Response
     ): Promise<any> {
         const profile = await this.profileService.addProfile(req.body);
+        res.send(profile);
+    }
+
+    @httpPut('/:id', joiValidateMiddleware(createProfileSchema))
+    private async updateProfile(
+        req: express.Request,
+        res: express.Response
+    ): Promise<any> {
+        const profile = await this.profileService.updateProileById(req.params.id, req.body);
         res.send(profile);
     }
 }

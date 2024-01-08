@@ -12,7 +12,6 @@ export class ProfileRepository implements ProfileRepositoryInterface {
     }
 
     async getProfileByUserId(userId: string): Promise<ProfileModel> {
-        console.log(userId);
         const result = await this.client?.profile?.findFirst({
             where: {
                 userId,
@@ -24,7 +23,14 @@ export class ProfileRepository implements ProfileRepositoryInterface {
 
     async addProfile(profile: ProfileModel): Promise<ProfileModel> {
         const result = await this.client?.profile?.create({data: profile});
-        return result ? result : [];
+        return result;
+    }
+
+    async  updateProileById(id: string, profile: ProfileModel): Promise<ProfileModel> {
+        const result = await this.client?.profile?.update({data: profile, where: {
+            id: id
+        }});
+        return result;
     }
 }
 

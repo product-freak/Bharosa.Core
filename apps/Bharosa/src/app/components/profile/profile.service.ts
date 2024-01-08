@@ -15,4 +15,8 @@ export class ProfileService implements ProfileServiceInterface {
     async addProfile(profile: ProfileModel): Promise<ProfileModel> {
         return await this.profileRepository.addProfile(profile);
     }
+
+    async  updateProileById(id: string, profile: ProfileModel): Promise<ProfileModel> {
+        return await this.profileRepository.updateProileById(id, profile);
+    }
 }
