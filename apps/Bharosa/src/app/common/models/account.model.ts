@@ -8,8 +8,8 @@ export type AccountModel = {
     createdById?: string
     updatedById?: string
     isDeleted?: boolean
-    username: string
-    password: string
+    username?: string
+    password?: string
     phoneNumber?: string
     otpSentToMobile?: string
     countryCode?: string

@@ -35,12 +35,14 @@ export class AuthService implements AuthServiceInterface {
       accountInfo = await this.authRepository.findAccountByPhoneNumber(account.phoneNumber);
     }
 
-    if (!accountInfo) {
+    if (!accountInfo && LoginMethodEnum.EMAIL_PASSWORD) {
       throw new ArgumentValidationError(
         `User is not found with given username ${account.username}`,
         account,
         ApiErrorCode.E0008,
       )
+    } else if (!accountInfo && account.loginProvider === LoginMethodEnum.MOBILE_OTP_PROVIDER) {
+      accountInfo = await this.authRepository.addAccount({phoneNumber: account.phoneNumber});
     }
 
     if (account.loginProvider === LoginMethodEnum.EMAIL_PASSWORD) {
