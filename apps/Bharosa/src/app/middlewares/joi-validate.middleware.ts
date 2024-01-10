@@ -5,12 +5,10 @@ const joiValidateMiddleware = (schema) => {
     return (req, res, next) => { 
     const data = req.body;
     const { error } = schema.validate(data, { abortEarly: false }); 
-    const valid = error == null; 
-        console.log(error);
+    const valid = error == null;
     if (valid) { 
       next(); 
-    } else { 
-        console.log(error);
+    } else {
       throw new ArgumentValidationError(error.message,
             data,
             error.message);

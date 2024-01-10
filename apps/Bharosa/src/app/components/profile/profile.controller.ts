@@ -14,6 +14,7 @@ export class ProfileController implements interfaces.Controller {
 
     @httpGet('', CommonTypes.jwtAuthMiddleware)
     private async getProfile(
+        req: express.Request,
         res: express.Response
     ): Promise<any> {
         const userId = this.requestContext.getUserId();
