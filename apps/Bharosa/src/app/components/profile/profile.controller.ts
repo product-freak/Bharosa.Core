@@ -14,20 +14,10 @@ export class ProfileController implements interfaces.Controller {
 
     @httpGet('', CommonTypes.jwtAuthMiddleware)
     private async getProfile(
-        req: express.Request,
         res: express.Response
     ): Promise<any> {
         const userId = this.requestContext.getUserId();
         const profile = await this.profileService.getProfileByUserId(userId);
-        res.send(profile);
-    }
-
-    @httpPost('', joiValidateMiddleware(createProfileSchema))
-    private async addProfile(
-        req: express.Request,
-        res: express.Response
-    ): Promise<any> {
-        const profile = await this.profileService.addProfile(req.body);
         res.send(profile);
     }
 
