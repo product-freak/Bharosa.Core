@@ -20,6 +20,7 @@ export class UserService implements UserServiceInterface {
     await this.profileService.addProfile({
       firstname: userDetail.firstname,
       lastname: userDetail.lastname,
+      phoneNumber: userDetail.phoneNumber,
       userId: userDetail.id
     });
     return userDetail;
