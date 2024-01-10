@@ -3,6 +3,8 @@ import { SkillTypeEnum } from "../../common/enums/skill-type.enum";
 
 export const createProfileSchema = Joi.object().keys({
     userId: Joi.string().required(),
+    firstname: Joi.string().optional(),
+    lastname: Joi.string().optional(),
     email: Joi.string().optional(),
     gender: Joi.string().optional(),
     aadharNumber: Joi.string().optional(),
@@ -24,6 +26,8 @@ export const createProfileSchema = Joi.object().keys({
 
 export const updateProfileSchema = Joi.object().keys({
     email: Joi.string().optional(),
+    firstname: Joi.string().optional(),
+    lastname: Joi.string().optional(),
     gender: Joi.string().optional(),
     aadharNumber: Joi.string().optional(),
     panNumber: Joi.string().optional(),
