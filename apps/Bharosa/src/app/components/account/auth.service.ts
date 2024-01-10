@@ -16,6 +16,7 @@ import { UserServiceInterface } from '../../common/interfaces/user-service.inter
 import { HashProviderInterface } from '../../common/interfaces/hash-provider.interface'
 import { LoginMethodEnum } from '../../common/enums/login-method.enum'
 import { RoleTypeEnum } from '../../common/enums/role-type.enum'
+import { UserTypeEnum } from '../../common/enums/user-type.enum'
 
 @injectable()
 export class AuthService implements AuthServiceInterface {
@@ -28,6 +29,7 @@ export class AuthService implements AuthServiceInterface {
 
   async login(account: AccountModel): Promise<AuthTokenModel | AccountModel> {
     let accountInfo;
+    let userDetails;
 
     if (account.loginProvider === LoginMethodEnum.EMAIL_PASSWORD) {
       accountInfo = await this.authRepository.findAccountByUsername(account.username);
@@ -42,7 +44,13 @@ export class AuthService implements AuthServiceInterface {
         ApiErrorCode.E0008,
       )
     } else if (!accountInfo && account.loginProvider === LoginMethodEnum.MOBILE_OTP_PROVIDER) {
-      accountInfo = await this.authRepository.addAccount({phoneNumber: account.phoneNumber});
+      accountInfo = await this.authRepository.addAccount({phoneNumber: account.phoneNumber, countryCode: account.countryCode});
+      const userInfo: AccountUserModel = {
+        accountId: accountInfo.id,
+        phoneNumber: account.phoneNumber,
+        countryCode: account.countryCode
+      };
+      userDetails = await this.userService.addUser(userInfo);
     }
 
     if (account.loginProvider === LoginMethodEnum.EMAIL_PASSWORD) {
@@ -58,9 +66,10 @@ export class AuthService implements AuthServiceInterface {
       const accessToken = await this.jwtService.encode(user);
       return { accessToken };
     } else if (account.loginProvider === LoginMethodEnum.MOBILE_OTP_PROVIDER) {
-      return accountInfo;
+      userDetails.loginProvider = LoginMethodEnum.MOBILE_OTP_PROVIDER;
+      const accessToken = await this.jwtService.encode(userDetails);
+      return { accessToken };
     }
-
   }
 
   async signUp(user: AccountUserModel): Promise<UserModel> {
@@ -79,17 +88,19 @@ export class AuthService implements AuthServiceInterface {
       username: user.email?.toLowerCase(),
       password: user.password,
       phoneNumber: user.phoneNumber,
+      countryCode: user.countryCode,
       role: user.role ?? RoleTypeEnum.USER
     };
 
     const account = await this.authRepository.addAccount(accountInfo);
     
-    const userInfo: UserModel = {
+    const userInfo: AccountUserModel = {
       accountId: account.id,
       firstname: user.firstname,
       lastname: user.lastname,
       email: user.email?.toLowerCase(),
-      phoneNumber: user.phoneNumber
+      phoneNumber: user.phoneNumber,
+      countryCode: user.countryCode
     };
 
     return await this.userService.addUser(userInfo);

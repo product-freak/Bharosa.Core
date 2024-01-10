@@ -6,6 +6,7 @@ import { UserModel } from '../../common/models/user.model';
 import { UserRepositoryInterface } from '../../common/interfaces/user-repository.interface';
 import { ProfileServiceInterface } from '../../common/interfaces/profile-service.interface';
 import { ProfileTypes } from '../profile/profile.types';
+import { AccountUserModel } from '../../common/models/account-user.model';
 
 @injectable()
 export class UserService implements UserServiceInterface {
@@ -15,12 +16,13 @@ export class UserService implements UserServiceInterface {
   ) {}
 
 
-  async addUser(user: UserModel): Promise<UserModel> {
-    const userDetail = await this.userRepository.addUser(user);
+  async addUser(user: AccountUserModel): Promise<UserModel> {
+    const userDetail = await this.userRepository.addUser({accountId: user.accountId});
     await this.profileService.addProfile({
-      firstname: userDetail.firstname,
-      lastname: userDetail.lastname,
-      phoneNumber: userDetail.phoneNumber,
+      firstname: user.firstname,
+      lastname: user.lastname,
+      phoneNumber: user.phoneNumber,
+      countryCode: user.countryCode,
       userId: userDetail.id
     });
     return userDetail;
@@ -43,13 +45,6 @@ export class UserService implements UserServiceInterface {
 
   async updateUserById(id: string, user: UserModel): Promise<UserModel> {
     const userDetail = await this.userRepository.updateUserById(id, user);
-    if (user.firstname || user.lastname || user.phoneNumber) {
-      await this.profileService.updateProfileByUserId(id, {
-        firstname: userDetail.firstname,
-        lastname: userDetail.lastname,
-        userId: userDetail.id
-      });
-    }
     return userDetail;
   }
 

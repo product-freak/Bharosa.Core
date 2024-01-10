@@ -67,13 +67,6 @@ model User {
   updatedById           String?       @db.VarChar(200) @map("updated_by_id")
   isDeleted             Boolean       @default(false) @map("is_deleted")
   accountId             String        @db.VarChar(100) @map("account_id")
-  firstname             String        @db.VarChar(200)
-  lastname              String?       @db.VarChar(200)
-  email                 String?       @db.VarChar(200)
-  phoneNumber           String        @db.VarChar(20) @map("phone_number")
-  profileImage          String?       @db.VarChar @map("profile_image")
-  location              String?
-  dob                   DateTime?
   userType              UserTypeEnum? @map("user_type")
   isOnboardingCompleted Boolean       @default(false) @map("is_onboarding_completed")
 }
