@@ -2,17 +2,18 @@ import { injectable } from 'inversify'
 import 'reflect-metadata'
 import { AsyncLocalStorage } from 'async_hooks'
 import { RequestContextInterface } from '../interfaces/request-context.interface'
+import { RequestContextType } from '../enums/request-context-type.enum'
 
 @injectable()
 export class RequestContext implements RequestContextInterface {
   asyncLocalStorage
   constructor() {
-    this.asyncLocalStorage = new AsyncLocalStorage()
+    this.asyncLocalStorage = new AsyncLocalStorage<RequestContextType>()
   }
 
-  private getStore() {
+  private getStore(): RequestContextType {
     const store = this.asyncLocalStorage.getStore()
-    return store ? store : {}
+    return store ? store : null
   }
 
   setUserId(userId: string) {
@@ -45,19 +46,19 @@ export class RequestContext implements RequestContextInterface {
     this.asyncLocalStorage.enterWith(store)
   }
 
-  getUserId() {
-    return this.asyncLocalStorage.getStore()?.['userId']
+  getUserId(): string {
+    return this.asyncLocalStorage.getStore().userId
   }
 
-  getAccountId() {
-    return this.asyncLocalStorage.getStore()?.['accountId']
+  getAccountId(): string {
+    return this.asyncLocalStorage.getStore().accountId
   }
 
-  getTimezone() {
-    return this.asyncLocalStorage.getStore()?.['timezone']
+  getTimezone(): string {
+    return this.asyncLocalStorage.getStore().timezone
   }
 
-  getUserType() {
-    return this.asyncLocalStorage.getStore()?.['userType']
+  getUserType(): string {
+    return this.asyncLocalStorage.getStore().userType
   }
 }

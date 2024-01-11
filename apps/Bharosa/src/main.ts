@@ -33,4 +33,4 @@ server.setErrorConfig((appForErrorConfig) => {
 })
 
 const app = server.build()
-app.listen(3002)
+app.listen(3003)

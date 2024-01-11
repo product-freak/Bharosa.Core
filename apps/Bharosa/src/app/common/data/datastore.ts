@@ -6,8 +6,8 @@ import { CommonTypes } from '../common.types';
 
 @injectable()
 export class DataStore {
-  public static dbClient
-  public static requestContext;
+  public static dbClient: PrismaClient
+  public static requestContext: RequestContext;
 
   public getClient() {
     return DataStore.dbClient
@@ -19,7 +19,7 @@ export class DataStore {
       CommonTypes.requestContext,
     )
 
-    this.dbClient.$use(async (params, next) => {
+    this.dbClient.$use(async (params: any, next: any) => {
       const userId = this.requestContext.getUserId()
       
       if(params.action=='upsert'){

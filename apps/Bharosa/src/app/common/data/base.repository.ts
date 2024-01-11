@@ -2,6 +2,7 @@ import { inject, injectable } from 'inversify'
 import 'reflect-metadata'
 import { DataStore } from './datastore'
 import { DataStoreInterface } from './datastore.interface'
+import { UserModel } from '../models/user.model'
 
 @injectable()
 export class DataStoreRepository implements DataStoreInterface {
@@ -11,8 +12,8 @@ export class DataStoreRepository implements DataStoreInterface {
     this.client = this.store.getClient()
   }
 
-  async execute() {
+  async execute(): Promise<UserModel[]> {
     const result = await this.client?.user?.findMany()
-    return result
+    return result as UserModel[]
   }
 }

@@ -17,7 +17,7 @@ export type PostModel = {
     location?: string
     rating?: number
     department?: UserTypeEnum
-    skills?: SkillTypeEnum
+    skills?: SkillTypeEnum[]
     experience?: string
     employmentType?: EmploymentTypeEnum
     qualification?: string
@@ -26,4 +26,7 @@ export type PostModel = {
     noOfVacancies?: string
     imageUrl?: string
     searchCode?: string
+    notification?: boolean
+    expiredOn?: Date
+    scheduledOn?: Date
 }

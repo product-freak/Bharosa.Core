@@ -3,6 +3,7 @@ import 'reflect-metadata'
 import { DataStore } from '../../common/data/datastore'
 import { UserRepositoryInterface } from '../../common/interfaces/user-repository.interface'
 import { UserModel } from '../../common/models/user.model'
+import { Prisma } from '@prisma/client'
 
 @injectable()
 export class UserRepository implements UserRepositoryInterface {
@@ -14,9 +15,9 @@ export class UserRepository implements UserRepositoryInterface {
 
   async addUser(user: UserModel): Promise<UserModel> {
     const result = await this.client.user?.create({
-      data: user
+      data: user as Prisma.UserCreateInput
     })
-    return result ? result : []
+    return result as UserModel
   }
 
   async getUserById(id: string): Promise<UserModel> {
@@ -26,7 +27,7 @@ export class UserRepository implements UserRepositoryInterface {
         isDeleted: false,
       },
     })
-    return result ? result : []
+    return result as UserModel
   }
 
   async getUserByAccountId(accountId: string): Promise<UserModel> {
@@ -36,7 +37,7 @@ export class UserRepository implements UserRepositoryInterface {
         isDeleted: false,
       },
     })
-    return result
+    return result as UserModel
   }
   
   async getUsers(): Promise<UserModel[]> {
@@ -45,7 +46,7 @@ export class UserRepository implements UserRepositoryInterface {
         isDeleted: false,
       },
     })
-    return result ? result : []
+    return (result ? result : []) as UserModel[]
   }
 
   async updateUserById(id: string, user: UserModel): Promise<UserModel> {
@@ -55,7 +56,7 @@ export class UserRepository implements UserRepositoryInterface {
         id
       }
     })
-    return result ? result : []
+    return result as UserModel;
   }
 
 }

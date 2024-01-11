@@ -20,9 +20,9 @@ export class PostService implements PostServiceInterface {
 
     async addPost(post: PostModel): Promise<PostModel> {
         post.searchCode = this.createSearchCode(post);
-        delete post['notification'];
-        delete post['expiredOn'];
-        delete post['scheduledOn'];
+        delete post.notification;
+        delete post.expiredOn;
+        delete post.scheduledOn;
         return await this.postRepository.addPost(post);
     }
 
@@ -38,7 +38,7 @@ export class PostService implements PostServiceInterface {
         return await this.postRepository.searchPostsBySkillsDepartment(searchQuery);
     }
 
-    private createSearchCode(post) {
+    private createSearchCode(post: PostModel) {
         let searchCode = '';
         if (post.department) {
             searchCode += post.department.toLowerCase();

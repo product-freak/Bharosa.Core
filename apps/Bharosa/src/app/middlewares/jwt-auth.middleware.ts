@@ -1,3 +1,4 @@
+import * as express from 'express'
 import { CommonContainer } from '../common/container'
 import { JWTService } from '../common/jwtservice/jwt.service'
 import { ApiErrorCode } from '../../../../shared/payloads/error-codes'
@@ -7,7 +8,7 @@ import UnauthorizedError from '../common/errors/custom-errors/unauthorized.error
 import { ArgumentValidationError } from '../common/errors/custom-errors/argument-validation.error'
 import { LogProviderInterface } from '../common/interfaces/log-provider.interface'
 
-const jwtMiddleware = (req, res, next) => {
+const jwtMiddleware = (req: express.Request, res: express.Response, next: express.NextFunction) => {
   const jwtService = CommonContainer.get<JWTService>(CommonTypes.jwt)
   const requestContext = CommonContainer.get<RequestContext>(
     CommonTypes.requestContext,
@@ -25,7 +26,7 @@ const jwtMiddleware = (req, res, next) => {
     try {
       if (jwtService.validate(req.headers.authorization)) {
         const authToken = jwtService.decode(req.headers.authorization)
-        requestContext.setUserId(authToken.userId)
+        requestContext.setUserId(authToken.id)
         requestContext.setAccountId(authToken.accountId)
         requestContext.setTimezone(null)
         requestContext.setUserType(authToken.userType)

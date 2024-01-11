@@ -2,6 +2,7 @@ import { inject, injectable } from 'inversify';
 import { PostRepositoryInterface } from '../../common/interfaces/post-repository.interface';
 import { DataStore } from '../../common/data/datastore';
 import { PostModel } from '../../common/models/post.model';
+import { Prisma } from '@prisma/client';
 
 @injectable()
 export class PostRepository implements PostRepositoryInterface {
@@ -18,31 +19,31 @@ export class PostRepository implements PostRepositoryInterface {
                 isDeleted: false
             }
         });
-        return result ? result : [];
+        return result as PostModel[];
     }
 
     async addPost(post: PostModel): Promise<PostModel> {
-        const result = await this.client?.post?.create({data: post});
-        return result ? result : [];
+        const result = await this.client?.post?.create({data: post as Prisma.PostCreateInput});
+        return result as PostModel;
     }
 
     async getPostById(id: string): Promise<PostModel> {
-        const result = await this.client?.post?.find({
+        const result = await this.client?.post?.findFirst({
             where: {
                 id
             }
         });
-        return result ? result : [];
+        return result as PostModel;
     }
 
     async searchPostsBySkillsDepartment(searchQuery: string): Promise<PostModel[]> {
-        const result = await this.client?.post?.findAll({
+        const result = await this.client?.post?.findMany({
             where: {
                 searchCode: {
                     search: searchQuery
                 }
             }
         });
-        return result ? result : [];
+        return result as PostModel[];
     }
 }

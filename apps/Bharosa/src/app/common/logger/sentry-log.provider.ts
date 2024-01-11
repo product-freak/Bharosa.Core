@@ -1,11 +1,10 @@
 import { injectable } from 'inversify'
-import axios from 'axios'
-import CleverTap from 'clevertap'
 import * as Sentry from '@sentry/node'
 import '@sentry/tracing'
 import { environment } from 'apps/Bharosa/src/environments/environment'
 import { LogProviderInterface } from '../interfaces/log-provider.interface'
 import LogLevels from '../enums/log-levels.enum'
+import { LoggerLevel } from './logger-level.enum'
 
 @injectable()
 export default class SentryLogProvider implements LogProviderInterface {
@@ -25,19 +24,19 @@ export default class SentryLogProvider implements LogProviderInterface {
     })
   }
 
-  log(level: LogLevels, message: string, attributes: any) {
-    if (level === LogLevels.Debug || level === LogLevels.Info) {
+  log(level: LoggerLevel, message: string, attributes: any) {
+    if (level == LoggerLevel.Debug || level === LoggerLevel.Info) {
       Sentry.addBreadcrumb({
         message,
         data: attributes,
-        level: level === LogLevels.Debug ? 'debug' : 'info',
+        level: level,
       })
     } else {
       Sentry.captureException(level, {
         extra: {
           message,
           attributes,
-          level,
+          level: LogLevels[level]
         },
       })
     }

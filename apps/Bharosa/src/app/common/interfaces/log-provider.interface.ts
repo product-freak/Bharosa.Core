@@ -1,7 +1,7 @@
-import LogLevels from "../enums/log-levels.enum"
+import { LoggerLevel } from "../logger/logger-level.enum"
 
 export interface LogProviderInterface {
-  initialize()
-  log(level: LogLevels, message: string, attributes: any)
-  setUserContext(accountId: string, emailAddress: string)
+  initialize(): void
+  log(level: LoggerLevel, message: string, attributes: any): void
+  setUserContext(accountId: string, emailAddress: string): void
 }

@@ -66,8 +66,7 @@ export class AuthService implements AuthServiceInterface {
       const accessToken = await this.jwtService.encode(user);
       return { accessToken };
     } else if (account.loginProvider === LoginMethodEnum.MOBILE_OTP_PROVIDER) {
-      userDetails.loginProvider = LoginMethodEnum.MOBILE_OTP_PROVIDER;
-      const accessToken = await this.jwtService.encode(userDetails);
+      const accessToken = await this.jwtService.encode({...userDetails, loginProvider: LoginMethodEnum.MOBILE_OTP_PROVIDER});
       return { accessToken };
     }
   }

@@ -2,6 +2,7 @@ import { inject, injectable } from 'inversify';
 import { DataStore } from '../../common/data/datastore';
 import { CompanyRepositoryInterface } from '../../common/interfaces/company-repository.interface';
 import { CompanyModel } from '../../common/models/company.model';
+import { Prisma } from '@prisma/client';
 
 @injectable()
 export class CompanyRepository implements CompanyRepositoryInterface {
@@ -12,16 +13,16 @@ export class CompanyRepository implements CompanyRepositoryInterface {
     }
 
     async addCompany(company: CompanyModel): Promise<CompanyModel> {
-        const result = await this.client?.company?.create({data: company});
-        return result ? result : [];
+        const result = await this.client?.company?.create({data: company as Prisma.CompanyCreateInput});
+        return result as CompanyModel;
     }
 
     async getCompanyById(id: string): Promise<CompanyModel> {
-        const result = await this.client?.company?.find({
+        const result = await this.client?.company?.findFirst({
             where: {
                 id
             }
         });
-        return result ? result : [];
+        return result as CompanyModel;
     }
 }

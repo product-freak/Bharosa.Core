@@ -16,7 +16,7 @@ export type ProfileModel = {
   gender?: string;
   aadharNumber?: string;
   panNumber?: string;
-  dob?: string;
+  dob?: Date;
   experienceYears?: number;
   experienceMonths?: number;
   companiesWorkedAt?: string[];

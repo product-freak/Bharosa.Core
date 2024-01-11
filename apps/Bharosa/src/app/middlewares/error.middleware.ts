@@ -1,3 +1,4 @@
+import * as express from 'express'
 import { CommonContainer } from '../common/container'
 import { Loggerservice } from '../common/logger/logger.service'
 import { CommonTypes } from '../common/common.types'
@@ -9,7 +10,7 @@ import { ThirdPartyAPIError } from '../common/errors/custom-errors/third-party.e
 import { BaseError } from '../common/errors/custom-errors/base.error'
 import UnauthorizedError from '../common/errors/custom-errors/unauthorized.error'
 
-const errorMiddleware = (err, req, res, next) => {
+const errorMiddleware = (err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
   const logger = CommonContainer.get<Loggerservice>(CommonTypes.logger)
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const nextFn = next

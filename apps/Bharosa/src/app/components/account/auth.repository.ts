@@ -18,24 +18,24 @@ export class AuthRepository implements AuthRepositoryInterface {
         isDeleted: false,
       },
     })
-    return result ? result : []
+    return result as AccountModel[]
   }
 
   async addAccount(account: AccountModel): Promise<AccountModel> {
     const result = await this.client.account?.create({
       data: account
     })
-    return result ? result : []
+    return result as AccountModel
   }
 
   async findAccountById(id: string): Promise<AccountModel> {
-    const result = await this.client.account?.find({
+    const result = await this.client.account?.findFirst({
       where: {
         id,
         isDeleted: false,
       },
     })
-    return result
+    return result as AccountModel
   }
 
   async findAccountByUsername(username: string): Promise<AccountModel> {
@@ -45,7 +45,7 @@ export class AuthRepository implements AuthRepositoryInterface {
         isDeleted: false,
       },
     })
-    return result
+    return result as AccountModel
   }
 
   async findAccountByPhoneNumber(phoneNumber: string): Promise<AccountModel> {
@@ -55,6 +55,6 @@ export class AuthRepository implements AuthRepositoryInterface {
         isDeleted: false,
       },
     })
-    return result
+    return result as AccountModel
   }
 }

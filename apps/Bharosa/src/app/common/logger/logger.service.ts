@@ -102,16 +102,16 @@ export class Loggerservice implements LoggerInterface {
     this.log(LoggerLevel.Verbose, message, logEntry)
   }
 
-  log(level: string, message: string, logEntry: object) {
+  log(level: LoggerLevel, message: string, logEntry: object) {
     this.logger.log(level, message, omit(logEntry, 'level'))
     this.sentryLogger.log(level, message, logEntry)
   }
 
   private getLogEntry = (
-    level,
-    callerTypeName,
-    callerMethodName,
-    data,
+    level: LoggerLevel,
+    callerTypeName: string,
+    callerMethodName: string,
+    data: any,
   ): any => {
     const asyncLocalStorage = new AsyncLocalStorage()
     const logEntry: any = {
