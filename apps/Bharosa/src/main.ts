@@ -23,9 +23,6 @@ server.setConfig((app) => {
   )
   app.use(bodyParser.json())
   app.use(cors(corsOptions))
-  app.get('/', (req, res) => {
-    res.send({ message: 'Welcome to api!' });
-  });
 })
 
 server.setErrorConfig((appForErrorConfig) => {
@@ -33,4 +30,4 @@ server.setErrorConfig((appForErrorConfig) => {
 })
 
 const app = server.build()
-app.listen(3003)
+app.listen(3002)
