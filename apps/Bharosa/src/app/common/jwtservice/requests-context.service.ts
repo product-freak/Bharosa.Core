@@ -47,18 +47,18 @@ export class RequestContext implements RequestContextInterface {
   }
 
   getUserId(): string {
-    return this.asyncLocalStorage.getStore().userId
+    return this.asyncLocalStorage.getStore()?.userId
   }
 
   getAccountId(): string {
-    return this.asyncLocalStorage.getStore().accountId
+    return this.asyncLocalStorage.getStore()?.accountId
   }
 
   getTimezone(): string {
-    return this.asyncLocalStorage.getStore().timezone
+    return this.asyncLocalStorage.getStore()?.timezone
   }
 
   getUserType(): string {
-    return this.asyncLocalStorage.getStore().userType
+    return this.asyncLocalStorage.getStore()?.userType
   }
 }
