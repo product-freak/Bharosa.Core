@@ -17,31 +17,31 @@ export class RequestContext implements RequestContextInterface {
   }
 
   setUserId(userId: string) {
-    const store = this.getStore()
+    const store = this.getStore() ?? {}
     store['userId'] = userId
     this.asyncLocalStorage.enterWith(store)
   }
 
   setEmail(email: string) {
-    const store = this.getStore()
+    const store = this.getStore() ?? {}
     store['email'] = email
     this.asyncLocalStorage.enterWith(store)
   }
 
   setAccountId(accountId: string) {
-    const store = this.getStore()
+    const store = this.getStore() ?? {}
     store['accountId'] = accountId
     this.asyncLocalStorage.enterWith(store)
   }
 
   setTimezone(timezone: string) {
-    const store = this.getStore()
+    const store = this.getStore() ?? {}
     store['timezone'] = timezone
     this.asyncLocalStorage.enterWith(store)
   }
 
   setUserType(userType: string) {
-    const store = this.getStore()
+    const store = this.getStore() ?? {}
     store['userType'] = userType
     this.asyncLocalStorage.enterWith(store)
   }
