@@ -3,7 +3,6 @@ import 'reflect-metadata'
 import { DataStore } from '../../common/data/datastore'
 import { UserRepositoryInterface } from '../../common/interfaces/user-repository.interface'
 import { UserModel } from '../../common/models/user.model'
-import { Prisma } from '@prisma/client'
 
 @injectable()
 export class UserRepository implements UserRepositoryInterface {
@@ -15,7 +14,7 @@ export class UserRepository implements UserRepositoryInterface {
 
   async addUser(user: UserModel): Promise<UserModel> {
     const result = await this.client.user?.create({
-      data: user as Prisma.UserCreateInput
+      data: user
     })
     return result as UserModel
   }

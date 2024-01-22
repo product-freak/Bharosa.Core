@@ -9,12 +9,7 @@
     "prisma_db_pull": "npx prisma db pull --schema=\"./apps/Bharosa/src/app/common/DataStore/prisma/schema.prisma\"",
     "prisma-deploy": "npx prisma migrate deploy --schema=\"./apps/Bharosa/src/app/common/DataStore/prisma/schema.prisma\"",
     "prisma-create": "npx prisma migrate dev --name remove-fields-user-schema --schema=\"./apps/Bharosa/src/app/common/DataStore/prisma/schema.prisma\"",
-    "lint": "eslint ."
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run lint"
-    }
+    "prepare": "husky install && chmod ug+x .husky/*"
   },
   "lint-staged": {
     "*.{ts,scss,css,html,js,json,yml}": [

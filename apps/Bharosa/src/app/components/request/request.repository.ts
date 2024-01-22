@@ -2,8 +2,6 @@ import { inject, injectable } from 'inversify';
 import { DataStore } from '../../common/data/datastore';
 import { RequestRepositoryInterface } from '../../common/interfaces/request-repository.interface';
 import { RequestModel } from '../../common/models/request.model';
-import { Prisma } from '@prisma/client';
-
 @injectable()
 export class RequestRepository implements RequestRepositoryInterface {
     protected client;
@@ -16,7 +14,7 @@ export class RequestRepository implements RequestRepositoryInterface {
         const result = await this.client?.request?.findMany({
             where: {
                companyId
-            } as Prisma.RequestWhereInput
+            }
         });
         return result as RequestModel[];
     }

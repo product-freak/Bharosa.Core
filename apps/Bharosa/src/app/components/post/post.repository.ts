@@ -2,7 +2,6 @@ import { inject, injectable } from 'inversify';
 import { PostRepositoryInterface } from '../../common/interfaces/post-repository.interface';
 import { DataStore } from '../../common/data/datastore';
 import { PostModel } from '../../common/models/post.model';
-import { Prisma } from '@prisma/client';
 
 @injectable()
 export class PostRepository implements PostRepositoryInterface {
@@ -23,7 +22,7 @@ export class PostRepository implements PostRepositoryInterface {
     }
 
     async addPost(post: PostModel): Promise<PostModel> {
-        const result = await this.client?.post?.create({data: post as Prisma.PostCreateInput});
+        const result = await this.client?.post?.create({data: post});
         return result as PostModel;
     }
 

@@ -2,7 +2,6 @@ import { inject, injectable } from 'inversify';
 import { ProfileRepositoryInterface } from '../../common/interfaces/profile-repository.interface';
 import { DataStore } from '../../common/data/datastore';
 import { ProfileModel } from '../../common/models/profile.model';
-import { Prisma } from '@prisma/client';
 
 @injectable()
 export class ProfileRepository implements ProfileRepositoryInterface {
@@ -37,7 +36,7 @@ export class ProfileRepository implements ProfileRepositoryInterface {
     async updateProfileByUserId(userId: string, profile: ProfileModel): Promise<ProfileModel> {
         const result = await this.client?.profile?.update({data: profile, where: {
             userId
-        } as Prisma.ProfileWhereUniqueInput});
+        }});
         return result as ProfileModel;
     }
 }
