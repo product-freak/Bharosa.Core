@@ -15,7 +15,7 @@ export class PostService implements PostServiceInterface {
     }
 
     async getPostById(id: string): Promise<PostModel> {
-        return await this.postRepository.getPostById(id);
+        return await this.postRepository.getPostById();
     }
 
     async addPost(post: PostModel): Promise<PostModel> {
